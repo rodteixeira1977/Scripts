@@ -27,7 +27,7 @@ select PLAN_VALUES.SQL_ID, PLAN_VALUES.old_plan_hash_value,TIME_VALUESMIN.avg_et
                   where  seq <= 2 and qtde >= 2
                   group by sql_id)
                 where
-                  new_timestamp > sysdate-10 and new_timestamp <= sysdate) PLAN_VALUES,
+                  new_timestamp > sysdate-1 and new_timestamp <= sysdate) PLAN_VALUES,
                  (
                  select sql_id,
                              plan_hash_value,
@@ -36,7 +36,7 @@ select PLAN_VALUES.SQL_ID, PLAN_VALUES.old_plan_hash_value,TIME_VALUESMIN.avg_et
                        where ss.snap_id = S.snap_id
                          and ss.instance_number = S.instance_number
                          and executions_delta > 2
-                         and begin_interval_time > sysdate-10 and begin_interval_time <= sysdate
+                         and begin_interval_time > sysdate-1 and begin_interval_time <= sysdate
                       group by sql_id, plan_hash_value
                   ) TIME_VALUESMIN,
                  (
@@ -47,7 +47,7 @@ select PLAN_VALUES.SQL_ID, PLAN_VALUES.old_plan_hash_value,TIME_VALUESMIN.avg_et
                        where ss.snap_id = S.snap_id
                          and ss.instance_number = S.instance_number
                          and executions_delta > 2
-                         and begin_interval_time > sysdate-10 and begin_interval_time <= sysdate
+                         and begin_interval_time > sysdate-1 and begin_interval_time <= sysdate
                       group by sql_id, plan_hash_value ) TIME_VALUESMAX
                   WHERE PLAN_VALUES.SQL_ID = TIME_VALUESMIN.SQL_ID
                     AND PLAN_VALUES.SQL_ID = TIME_VALUESMAX.SQL_ID
